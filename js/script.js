@@ -26,6 +26,7 @@ _game.startBtn.addEventListener("click", () => {
   _data.gameOn = true;
 
   disablePads();
+  feedbackCursor("auto");
 });
 
 const openModal = () => {
@@ -60,6 +61,41 @@ const randomColor = () => {
   _data.score++;
 
   setScore();
+};
+
+const playSequence = () => {
+  let counter = 0;
+  let padOn = true;
+
+  _data.playerSequence = [];
+  _data.playerTurn = false;
+
+  feedbackCursor("auto");
+
+  const interval = setInterval(() => {
+    if (padOn) {
+      if (counter === _data.gameSequence.length) {
+        clearInterval(interval);
+
+        disablePads();
+        waitForClick();
+        feedbackCursor("pointer");
+
+        _data.playerTurn = true;
+        return;
+      }
+
+      const padId = _data.gameSequence[counter];
+      const pad = _game.pads[padId];
+
+      pad.classList.add("game__pad--active");
+      counter++;
+    } else {
+      disablePads();
+    }
+
+    padOn = !padOn;
+  }, 750);
 };
 
 const printInfo = (text, callback) => {
