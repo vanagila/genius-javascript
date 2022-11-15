@@ -108,9 +108,10 @@ main {
   justify-content: center;
   align-items: center;
   font-family: var(--game-font);
-  font-size: 1.563rem;
+  font-size: 1rem;
   color: var(--color-light-red);
   background-color: var(--color-border);
+  text-align: center;
   position: absolute;
 }
 
