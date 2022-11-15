@@ -25,3 +25,16 @@ _game.startBtn.addEventListener("click", () => {
   _data.playerSequence = [];
   _data.gameOn = true;
 });
+
+const openModal = () => {
+  _game.modal.classList.add("open");
+  _game.overlay.classList.add("open");
+};
+
+const closeModal = () => {
+  _game.modal.classList.remove("open");
+  _game.overlay.classList.remove("open");
+};
+
+_game.rulesBtn.addEventListener("click", openModal);
+_game.modalBtn.addEventListener("click", closeModal);
