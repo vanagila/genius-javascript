@@ -75,6 +75,16 @@ const printInfo = (text, callback) => {
   }, 250);
 };
 
+const waitForClick = () => {
+  clearTimeout(_data.timeout);
+
+  _data.timeout = setTimeout(() => {
+    if (!_data.playerTurn) return;
+
+    disablePads();
+  }, 4000);
+};
+
 const gameOver = () => {
   _data.playerTurn = false;
 
