@@ -38,3 +38,8 @@ const closeModal = () => {
 
 _game.rulesBtn.addEventListener("click", openModal);
 _game.modalBtn.addEventListener("click", closeModal);
+
+const randomColor = () => {
+  _data.gameSequence.push(Math.floor(Math.random() * 4));
+  _data.score++;
+};
