@@ -75,6 +75,19 @@ const printInfo = (text, callback) => {
   }, 250);
 };
 
+const gameOver = () => {
+  _data.playerTurn = false;
+
+  disablePads();
+  feedbackCursor("auto");
+
+  printInfo("FIM DE JOGO", () => {
+    _data.score = 0;
+    _data.gameSequence = [];
+    _data.playerSequence = [];
+  });
+};
+
 const feedbackCursor = (cursorType) => {
   _game.pads.forEach((pad) => {
     pad.style.cursor = cursorType;
