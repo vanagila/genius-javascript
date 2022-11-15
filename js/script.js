@@ -39,9 +39,23 @@ const closeModal = () => {
 _game.rulesBtn.addEventListener("click", openModal);
 _game.modalBtn.addEventListener("click", closeModal);
 
+const setScore = () => {
+  const score = _data.score.toString();
+  const display = "00".substring(0, 2 - score.length) + score;
+
+  _game.counter.innerText = display;
+};
+
 const randomColor = () => {
+  if (_data.score === 20) {
+    printInfo("VOCÊ VENCEU");
+    return;
+  }
+
   _data.gameSequence.push(Math.floor(Math.random() * 4));
   _data.score++;
+
+  setScore();
 };
 
 const printInfo = (text, callback) => {
