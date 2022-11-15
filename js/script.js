@@ -51,6 +51,43 @@ const setScore = () => {
   _game.counter.innerText = display;
 };
 
+const padListener = (ev) => {
+  if (!_data.playerTurn) return;
+
+  let padId;
+
+  _game.pads.forEach((pad, index) => {
+    if (pad === ev.target) {
+      padId = index;
+    }
+  });
+
+  ev.target.classList.add("game__pad--active");
+
+  _data.playerSequence.push(padId);
+
+  setTimeout(() => {
+    ev.target.classList.remove("game__pad--active");
+
+    const currentColor = _data.playerSequence.length - 1;
+
+    if (
+      _data.playerSequence[currentColor] !== _data.gameSequence[currentColor]
+    ) {
+      _data.playerTurn = false;
+      disablePads();
+      gameOver();
+    } else if (currentColor === _data.gameSequence[currentColor]) {
+      randomColor();
+      playSequence();
+    }
+  }, 200);
+};
+
+_game.pads.forEach((pad) => {
+  pad.addEventListener("click", padListener);
+});
+
 const randomColor = () => {
   if (_data.score === 20) {
     printInfo("VOCÊ VENCEU", disablePads());
