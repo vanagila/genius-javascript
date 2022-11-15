@@ -27,6 +27,7 @@ _game.startBtn.addEventListener("click", () => {
 
   disablePads();
   feedbackCursor("auto");
+  startGame();
 });
 
 const openModal = () => {
@@ -43,13 +44,6 @@ const closeModal = () => {
 
 _game.rulesBtn.addEventListener("click", openModal);
 _game.modalBtn.addEventListener("click", closeModal);
-
-const setScore = () => {
-  const score = _data.score.toString();
-  const display = "00".substring(0, 2 - score.length) + score;
-
-  _game.counter.innerText = display;
-};
 
 const padListener = (ev) => {
   if (!_data.playerTurn) return;
@@ -77,7 +71,7 @@ const padListener = (ev) => {
       _data.playerTurn = false;
       disablePads();
       gameOver();
-    } else if (currentColor === _data.gameSequence[currentColor]) {
+    } else if (currentColor === _data.gameSequence.length - 1) {
       randomColor();
       playSequence();
     }
@@ -87,6 +81,21 @@ const padListener = (ev) => {
 _game.pads.forEach((pad) => {
   pad.addEventListener("click", padListener);
 });
+
+const startGame = () => {
+  printInfo("GAME ON", () => {
+    randomColor();
+    playSequence();
+  });
+  waitForClick();
+};
+
+const setScore = () => {
+  const score = _data.score.toString();
+  const display = "00".substring(0, 2 - score.length) + score;
+
+  _game.counter.innerText = display;
+};
 
 const randomColor = () => {
   if (_data.score === 20) {
@@ -164,7 +173,7 @@ const gameOver = () => {
   disablePads();
   feedbackCursor("auto");
 
-  printInfo("FIM DE JOGO", () => {
+  printInfo("GAME OVER", () => {
     _data.score = 0;
     _data.gameSequence = [];
     _data.playerSequence = [];
