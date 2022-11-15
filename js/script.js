@@ -43,3 +43,16 @@ const randomColor = () => {
   _data.gameSequence.push(Math.floor(Math.random() * 4));
   _data.score++;
 };
+
+const printInfo = (text, callback) => {
+  let counter = 0;
+
+  _game.counter.innerText = text;
+
+  const interval = setInterval(() => {
+    if (++counter === 3) {
+      clearInterval(interval);
+      callback();
+    }
+  }, 250);
+};
