@@ -24,11 +24,15 @@ _game.startBtn.addEventListener("click", () => {
   _data.gameSequence = [];
   _data.playerSequence = [];
   _data.gameOn = true;
+
+  disablePads();
 });
 
 const openModal = () => {
   _game.modal.classList.add("open");
   _game.overlay.classList.add("open");
+
+  disablePads();
 };
 
 const closeModal = () => {
@@ -48,7 +52,7 @@ const setScore = () => {
 
 const randomColor = () => {
   if (_data.score === 20) {
-    printInfo("VOCÊ VENCEU");
+    printInfo("VOCÊ VENCEU", disablePads());
     return;
   }
 
@@ -69,4 +73,16 @@ const printInfo = (text, callback) => {
       callback();
     }
   }, 250);
+};
+
+const feedbackCursor = (cursorType) => {
+  _game.pads.forEach((pad) => {
+    pad.style.cursor = cursorType;
+  });
+};
+
+const disablePads = () => {
+  _game.pads.forEach((pad) => {
+    pad.classList.remove("game__pad--active");
+  });
 };
